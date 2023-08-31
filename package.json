@@ -1,0 +1,19 @@
+{
+  "name": "viaris-node-red",
+  "version": "1.0.0",
+  "description": "Monitor viaris EV charger.",
+  "main": "viaris-node-red.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HGC72",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "viaris-node-red": "viaris-node-red.js"
+    }
+  },
+  "dependencies": {
+    "mqtt": "^5.0.0"
+  }
+}

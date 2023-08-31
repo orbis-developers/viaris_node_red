@@ -1,0 +1,208 @@
+<script type="text/javascript">
+    RED.nodes.registerType('viaris-node-red',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            serialNumber: { value: "", required: true },
+            brokerServer: { value: "", required: true },
+            username: { value: "", required: true },
+            password: { value: "", required: true }
+        },
+        inputs:0,
+        outputs:5,
+        outputLabels: function(index) {
+            switch (index) {
+                case 0:
+                    return "Modulator";
+                case 1:
+                    return "MQTT_cfg";
+                case 2:
+                    return "Boot_sys";
+                case 3:
+                    return "Mennekes";
+                case 4:
+                    return "Schuko";
+                default:
+                    return "Salida";
+            }
+        },
+        icon: "icon-viaris.png",
+        oneditprepare: function () {
+            $("#node-input-serialNumber").val(this.serialNumber);
+            $("#node-input-brokerServer").val(this.brokerServer);
+            $("#node-input-username").val(this.username);
+            $("#node-input-password").val(this.password);
+        },
+        oneditcancel: function () {
+            // Restablecer los campos si se cancela la edición
+            $("#node-input-serialNumber").val(this.serialNumber);
+            $("#node-input-brokerServer").val(this.brokerServer);
+            $("#node-input-username").val(this.username);
+            $("#node-input-password").val(this.password);
+        },
+        label: function() {
+            return this.name||"viaris-node-red";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="viaris-node-red">
+    <div class="form-row">
+        <label for="node-input-serialNumber"><i class="fa fa-tag"></i> Serial Number</label>
+        <input type="text" id="node-input-serialNumber" placeholder="Serial Number" ng-model="serialNumber">
+    </div>
+    <div class="form-row">
+        <label for="node-input-brokerServer"><i class="fa fa-tag"></i> Broker Server</label>
+        <input type="text" id="node-input-brokerServer" placeholder="Broker Server" ng-model="brokerServer">
+    </div>
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-tag"></i> Username</label>
+        <input type="text" id="node-input-username" placeholder="Username" ng-model="username">
+    </div>
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-tag"></i> Password</label>
+        <input type="password" id="node-input-password" placeholder="Password" ng-model="password">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="viaris-node-red">
+    <p>viaris-node-red allows communication between an MQTT broker server and a Viaris electric vehicle charger to achieve monitoring of states and measurements related to the charging processes.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>Serial number
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Viaris serial number. </dd>
+        <dt>Broker server
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Broker server url or ip address</dd>
+        <dt>Username
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Broker username</dd>
+        <dt>Password
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Broker password</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <ol class="node-ports">
+        <li>Modulator
+            <dl class="message-properties">               
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>Mqtt topic related to modulator</dd>
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>Measurements value output.</dd>
+                <dd>Example: </dd>
+                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/streamrt/modulator</code>,</dd>
+                <dd>payload: <code>{
+                        evsePower: '0.00',
+                        homePower: '0.00',
+                        totalPower: '0.00',
+                        actPwCon1: '0.00',
+                        actPwCon2: '0.00',
+                        rectPwCon1: '0.00',
+                        rectPwCon2: '0.00',
+                        actEnergyCon1: '154.20',
+                        actEnergyCon2: '205.82',
+                        reactEnergyCon1: '0.00',
+                        reactEnergyCon2: '0.00',
+                        totalEnergy: '0.00',
+                        relOverload: '0.00',
+                        totalCurrent: '0.00'
+                    }</code></dd>
+            </dl>
+        </li>
+        <li>MQTT_cfg
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>Mqtt topic related to mqtt configuration</dd>
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>Mqtt configuration parameters output.</dd>
+                <dd>Example: </dd>
+                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/cfg/mqtt_user</code>,</dd>
+                <dd>payload: <code>{
+                        keepAlive: 180,
+                        mqttUrl: '1.1.2.201',
+                        mqttPort: 1883,
+                        mqttUser: 'MQTTBROKER',
+                        mqttClientId: 'EVVC351187AA0',
+                        qos: 1,
+                        pingInterval: 900
+                    }</code></dd>
+                </dd>
+            </dl>
+        </li>
+        <li>Boot_sys
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>Mqtt topic related to Boot sys</dd>
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>Charger information output.</dd>
+                <dd>Example: </dd>
+                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/boot/sys</code>,</dd>
+                <dd>payload: <code>{
+                  ethernet: true,
+                  ocpp: true,
+                  rfid: true,
+                  spl: false,
+                  schuko: true,
+                  modbus: true,
+                  solar: true,
+                  mac: '40:91:51:18:7A:A0',
+                  fwApp: '7.0.6',
+                  hwver: '8.0',
+                  model: 'VIARIS UNI',
+                  serial: 'EVVC351187AA0',
+                  fwCortex: '003.005.004 Jun 15 2023 10:57:12',
+                  fwPwVers: '3PH_FW_ORB_V00.9 ',
+                  hwPwVersion: 'PK1T1-C V1.2   ',
+                  maxPower: 22080,
+                  limitPower: 22080,
+                  selectorPower: 22080
+                }</code></dd>
+            </dl>
+        </li>
+        <li>Mennekes
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>Mqtt topic related to mennekes connector</dd>
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>Mennekes connector state output.</dd>
+                <dd>Example: </dd>
+                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/value/evsm/mennekes</code>,</dd>
+                <dd>payload: <code>{ user: '508289ab', state_menn: 'Charging: power limit' }</code></dd>
+            </dl>
+        </li>
+        <li>Schuko
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>Mqtt topic related to schuko connector</dd>
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>Schuko connector state output.</dd>
+                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/value/evsm/schuko</code>,</dd>
+                <dd>payload: <code>{ user: '', state_schuko: 'Charging: power limit' }</code></dd>
+            </dl>
+        </li>
+    </ol>
+    <h3>Details</h3>
+    <p><code>msg.payload</code> is used as the payload of the published message.</p>
+    <p></p>
+    <p>Mennekes states are the following: </p>
+    <p><code>- Standby</code></p>
+    <p><code>- Disconnected</code></p>
+    <p><code>- Disconnected without permission</code></p>
+    <p><code>- Connected</code></p>
+    <p><code>- Connected with permission</code></p>
+    <p><code>- Charging</code></p>
+    <p><code>- Charging: power limit</code></p>
+    <p><code>- Paused charging</code></p>
+    <p><code>- Charging finished</code></p>
+    <p><code>- error</code></p>
+    <p></p>
+    <p>Schuko states are the following: </p>
+    <p><code>- schuko ON, load</code></p>
+    <p><code>- schuko ON, not load</code></p>
+    <p><code>- schuko OFF</code></p>
+</script>
