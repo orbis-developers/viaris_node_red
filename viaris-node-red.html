@@ -90,12 +90,9 @@
     <ol class="node-ports">
         <li>Modulator
             <dl class="message-properties">               
-                <dt>topic <span class="property-type">string</span></dt>
-                <dd>Mqtt topic related to modulator</dd>
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Measurements value output.</dd>
                 <dd>Example: </dd>
-                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/streamrt/modulator</code>,</dd>
                 <dd>payload: <code>{
                         evsePower: '0.00',
                         homePower: '0.00',
@@ -103,11 +100,13 @@
                         actPwCon1: '0.00',
                         actPwCon2: '0.00',
                         rectPwCon1: '0.00',
-                        rectPwCon2: '0.00',
+                        rectPwCon2: '0.00',</dd>
+                        <dd>
                         actEnergyCon1: '154.20',
                         actEnergyCon2: '205.82',
                         reactEnergyCon1: '0.00',
                         reactEnergyCon2: '0.00',
+                        </dd><dd>
                         totalEnergy: '0.00',
                         relOverload: '0.00',
                         totalCurrent: '0.00'
@@ -116,12 +115,9 @@
         </li>
         <li>MQTT_cfg
             <dl class="message-properties">
-                <dt>topic <span class="property-type">string</span></dt>
-                <dd>Mqtt topic related to mqtt configuration</dd>
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Mqtt configuration parameters output.</dd>
                 <dd>Example: </dd>
-                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/cfg/mqtt_user</code>,</dd>
                 <dd>payload: <code>{
                         keepAlive: 180,
                         mqttUrl: '1.1.2.201',
@@ -136,12 +132,9 @@
         </li>
         <li>Boot_sys
             <dl class="message-properties">
-                <dt>topic <span class="property-type">string</span></dt>
-                <dd>Mqtt topic related to Boot sys</dd>
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Charger information output.</dd>
                 <dd>Example: </dd>
-                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/boot/sys</code>,</dd>
                 <dd>payload: <code>{
                   ethernet: true,
                   ocpp: true,
@@ -166,28 +159,23 @@
         </li>
         <li>Mennekes
             <dl class="message-properties">
-                <dt>topic <span class="property-type">string</span></dt>
-                <dd>Mqtt topic related to mennekes connector</dd>
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Mennekes connector state output.</dd>
                 <dd>Example: </dd>
-                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/value/evsm/mennekes</code>,</dd>
                 <dd>payload: <code>{ user: '508289ab', state_menn: 'Charging: power limit' }</code></dd>
             </dl>
         </li>
         <li>Schuko
             <dl class="message-properties">
-                <dt>topic <span class="property-type">string</span></dt>
-                <dd>Mqtt topic related to schuko connector</dd>
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Schuko connector state output.</dd>
-                <dd>topic: <code>XEO/VIARIS/087AA0/stat/0/EVVC351187AA0/value/evsm/schuko</code>,</dd>
                 <dd>payload: <code>{ user: '', state_schuko: 'Charging: power limit' }</code></dd>
             </dl>
         </li>
     </ol>
     <h3>Details</h3>
-    <p><code>msg.payload</code> is used as the payload of the published message.</p>
+    <p><code>msg.payload</code> Contains the fields of each output.</p>
+    <p>Example: if you want to know keepAlive value of MQTT_cfg output, you can access like this <code>msg.payload.keepAlive</code></p>
     <p></p>
     <p>Mennekes states are the following: </p>
     <p><code>- Standby</code></p>
