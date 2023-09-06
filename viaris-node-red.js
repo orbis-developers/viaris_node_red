@@ -215,6 +215,7 @@ module.exports = function(RED) {
         client.on('connect', function() {
             // Se ejecuta cuando la conexión con el broker es establecida
             console.log('Conectado viaris al broker MQTT');
+            node.status({ fill: "green", shape: "dot", text: "MQTT connected"});
             // Subscripción de topics
             subscribeTopics(client, topicToSubscribe_rt); 
             subscribeTopics(client, topicToSubscribe_boot_sys);     
@@ -235,7 +236,9 @@ module.exports = function(RED) {
             // Publicación síncrona de topics tipo set
             setInterval(function() {publishTopic(client, topicSetRt, payloadRt);}, 10000);          // 10000 milisegundos
         });
-
+        client.on('close', function() {
+            node.status({ fill: "red", shape: "dot", text: "MQTT disconnected" });
+        });
        // Manejador de mensajes entrantes
        client.on('message', function(topic, message) {
             // topic: El topic donde se recibió el mensaje
