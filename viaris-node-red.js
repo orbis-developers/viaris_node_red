@@ -172,7 +172,8 @@ function publishTopic(clientMqtt, topic, mensaje){
         if (err) {
           console.error('Error al publicar el mensaje:', err);
         } else {
-          console.log('Mensaje MQTT publicado:', mensaje);
+          console.log('Topic MQTT publicado:', topic);
+          console.log('Payload MQTT publicado:', mensaje);
         }
     });
 }
@@ -184,7 +185,6 @@ module.exports = function(RED) {
         var brokerServer = config.brokerServer;
         var username = config.username;
         var password = config.password;
-
         // Configura los detalles de conexión MQTT
         var mqttOptions = {
             clientId: 'ViarisClient',   // Nombre del cliente MQTT
@@ -211,6 +211,17 @@ module.exports = function(RED) {
         var topicGetSchuko = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/schuko';
         var topicGetSysBoot = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/boot/sys';
         var payloadGet = '{"idTrans": 0}'
+        var topicStartStop = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes';
+        var payloadStart = '{"idTrans":49685,"header":{"timestamp":1665381726837, "heapFree":0}, "data":{"uid":1, "source":"app", "priority":0,"action":1,"user":"","group":0}}';
+        var payloadStop = '{"idTrans":49685,"header":{"timestamp":1665381726837, "heapFree":0}, "data":{"uid":1, "source":"app", "priority":0,"action":0,"user":"","group":0}}';
+        node.on('input', function(msg) {
+            console.log(msg.payload);
+            if(msg.payload==="Start"){
+                publishTopic(client, topicStartStop, payloadStart);   
+            }else if(msg.payload==="Stop"){
+                publishTopic(client, topicStartStop, payloadStop);     
+            }
+        });
         // Manejador del evento "connect"
         client.on('connect', function() {
             // Se ejecuta cuando la conexión con el broker es establecida

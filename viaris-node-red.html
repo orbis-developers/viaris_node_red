@@ -8,8 +8,11 @@
             username: { value: "", required: true },
             password: { value: "", required: true }
         },
-        inputs:0,
+        inputs:1,
         outputs:5,
+        InputLabels: function() {
+            return "input";
+        },
         outputLabels: function(index) {
             switch (index) {
                 case 0:
@@ -23,7 +26,7 @@
                 case 4:
                     return "Schuko";
                 default:
-                    return "Salida";
+                    return "output";
             }
         },
         icon: "icon-viaris.png",
@@ -45,7 +48,6 @@
         }
     });
 </script>
-
 <script type="text/html" data-template-name="viaris-node-red">
     <div class="form-row">
         <label for="node-input-serialNumber"><i class="fa fa-mobile"></i> Serial Number</label>
