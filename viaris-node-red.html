@@ -10,8 +10,11 @@
         },
         inputs:1,
         outputs:5,
-        InputLabels: function() {
-            return "input";
+        InputLabels: function(index) {
+            switch(index){
+                case 0:
+                    return "input_connector";
+            }
         },
         outputLabels: function(index) {
             switch (index) {

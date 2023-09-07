@@ -211,16 +211,21 @@ module.exports = function(RED) {
         var topicGetSchuko = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/schuko';
         var topicGetSysBoot = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/boot/sys';
         var payloadGet = '{"idTrans": 0}'
-        var topicStartStop = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes';
+        var topicStartStopConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes';
+        var topicStartStopConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/schuko';
         var payloadStart = '{"idTrans":49685,"header":{"timestamp":1665381726837, "heapFree":0}, "data":{"uid":1, "source":"app", "priority":0,"action":1,"user":"","group":0}}';
         var payloadStop = '{"idTrans":49685,"header":{"timestamp":1665381726837, "heapFree":0}, "data":{"uid":1, "source":"app", "priority":0,"action":0,"user":"","group":0}}';
         node.on('input', function(msg) {
             console.log(msg.payload);
-            if(msg.payload==="Start"){
-                publishTopic(client, topicStartStop, payloadStart);   
-            }else if(msg.payload==="Stop"){
-                publishTopic(client, topicStartStop, payloadStop);     
-            }
+            if(msg.payload==="StartConn1"){
+                publishTopic(client, topicStartStopConn1, payloadStart);   
+            }else if(msg.payload==="StopConn1"){
+                publishTopic(client, topicStartStopConn1, payloadStop);     
+            }else if(msg.payload==="StartConn2"){
+                publishTopic(client, topicStartStopConn2, payloadStart);     
+            }else if(msg.payload==="StopConn2"){
+                publishTopic(client, topicStartStopConn2, payloadStop);     
+            }     
         });
         // Manejador del evento "connect"
         client.on('connect', function() {
