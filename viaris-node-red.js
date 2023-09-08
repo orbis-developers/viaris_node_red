@@ -123,10 +123,13 @@ function stateMennekes(stateNumber){
 
 function stateSchuko(stateNumber){
     switch (stateNumber) {
+        case 0:
+            state = "schuko standby";
+            break;
         case 14:
             state="schuko ON, load";
             break;
-        case 13:
+        case 30:
             state="schuko ON, not load";
             break;
         case 31:
