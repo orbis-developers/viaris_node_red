@@ -16,6 +16,10 @@ viaris_node_red has an input to start and stop the charge in each connector and 
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/480e6941-5d1f-4ae5-8ab2-d3862ff28ed9)
 
+## General information
+On the help tab you can find detailed information about viaris-node-red
+
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/d8d2e97d-1203-476b-bc8c-88b4399be524)
 
 ## Dashboard
 Node-RED has the possibility of representing the data obtained by the node in a more visual format through the dashboard.
