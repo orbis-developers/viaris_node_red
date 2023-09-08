@@ -7,7 +7,7 @@ Project for the Creation of a Node-RED Node for MQTT Communications with Viaris 
 ## Input configuration
 viaris_node_red has to be configured with the charger serial number and the right broker mqtt credentials.
 
-![imagen](https://github.com/orbis-developers/viaris_node_red/assets/66405397/1968f4cc-1ec3-447b-b6e3-5f77705b9101)
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/ca046cc0-3165-4824-9e62-df7506013ac7)
 
 
 ## Inputs/Outputs node
