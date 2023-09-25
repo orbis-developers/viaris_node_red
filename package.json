@@ -1,6 +1,6 @@
 {
   "name": "viaris-node-red",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Monitor viaris EV charger.",
   "main": "viaris-node-red.js",
   "scripts": {
