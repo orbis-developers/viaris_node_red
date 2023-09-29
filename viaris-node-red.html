@@ -151,7 +151,8 @@
                   mac: '40:91:51:18:7A:A0',
                   fwApp: '7.0.6',
                   hwver: '8.0',
-                  model: 'VIARIS UNI',
+                  model: 'VIARIS UNI',</dd>
+                 <dd>
                   serial: 'EVVC351187AA0',
                   fwCortex: '003.005.004 Jun 15 2023 10:57:12',
                   fwPwVers: '3PH_FW_ORB_V00.9 ',
@@ -162,19 +163,27 @@
                 }</code></dd>
             </dl>
         </li>
-        <li>Mennekes
+        <li>Connector 1
             <dl class="message-properties">
                 <dt>payload <span class="property-type">string</span></dt>
-                <dd>Mennekes connector state output.</dd>
+                <dd>- UNI model: Mennekes connector state output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{ user: '508289ab', state_menn: 'Charging: power limit' }</code></dd>
+                <dd>payload: <code>{ user: '508289ab', state_mennekes: 'Charging: power limit' }</code></dd>
+                <dd>- COMBIPLUS model: Mennekes 1 connector state output.</dd>
+                <dd>Example: </dd>
+                <dd>payload: <code>{ user: '508289ab', state_mennekes1: 'Charging: power limit' }</code></dd>
             </dl>
         </li>
-        <li>Schuko
+        <li>Connector 2
             <dl class="message-properties">
                 <dt>payload <span class="property-type">string</span></dt>
-                <dd>Schuko connector state output.</dd>
+                <dd>- UNI model: Schuko connector state output.</dd>
+                <dd>Example: </dd>
                 <dd>payload: <code>{ user: '', state_schuko: 'Charging: power limit' }</code></dd>
+                <dd>- COMBIPLUS model: Mennekes 2 connector state output.</dd>
+                <dd>Example: </dd>
+                <dd>payload: <code>{ user: '508289ab', state_mennekes2: 'Charging: power limit' }</code></dd
+                
             </dl>
         </li>
     </ol>

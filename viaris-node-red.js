@@ -139,25 +139,49 @@ function stateSchuko(stateNumber){
     return state;
 }
 
-function loadMennParam(topic, jsonData){
-    var msg = {
-        topic: topic,
-        payload: {
-            "user": jsonData.data.stat.user,
-            "state_menn": stateMennekes(jsonData.data.stat.state),        
-        }
-    };
+function loadConn1Param(topic, jsonData, model){
+    var msg;
+    if(model=='UNI'){
+        msg = {
+            topic: topic,
+            payload: {
+                "user": jsonData.data.stat.user,
+                "state_mennekes": stateMennekes(jsonData.data.stat.state),        
+            }
+        };
+    }
+    else{
+        msg = {
+            topic: topic,
+            payload: {
+                "user": jsonData.data.stat.user,
+                "state_mennekes1": stateMennekes(jsonData.data.stat.state),        
+            }
+        }; 
+    }    
     return msg;
 }
 
-function loadSchukoParam(topic, jsonData){
-    var msg = {
-        topic: topic,
-        payload: {
-            "user": jsonData.data.stat.user,
-            "state_schuko": stateSchuko(jsonData.data.stat.state),        
-        }
-    };
+function loadConn2Param(topic, jsonData, model){
+    var msg;
+    if(model=='UNI'){
+        msg = {
+            topic: topic,
+            payload: {
+                "user": jsonData.data.stat.user,
+                "state_schuko": stateSchuko(jsonData.data.stat.state),        
+            }
+        };
+    }
+    else{
+        msg = {
+            topic: topic,
+            payload: {
+                "user": jsonData.data.stat.user,
+                "state_mennekes2": stateMennekes(jsonData.data.stat.state),        
+            }
+        };
+    }
     return msg;
 }
 
@@ -197,27 +221,40 @@ module.exports = function(RED) {
         brokerServer = "mqtt://" + brokerServer;
         // Crea una conexión MQTT
         var client = mqtt.connect(brokerServer, mqttOptions);
-        
+        var topicToSubscribeConn1, topicToSubscribeConn2, topicGetConn1, topicGetConn2, topicStartStopConn1, topicStartStopConn2, model;
         // Suscripción a los topics
         var shortSerialNumber = "0" + serialNumber.slice(-5);
         var topicToSubscribe_rt = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/streamrt/modulator';
         var topicToSubscribe_boot_sys = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/boot/sys';
         var topicToSubscribe_mqtt = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/cfg/mqtt_user';
-        var topicToSubscribe_menk = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/value/evsm/mennekes';
-        var topicToSubscribe_schuko = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/value/evsm/schuko';
         var topicToSubscribe_init_boot_sys = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/init_boot/sys';
         // Topics de publicación
         var topicSetRt = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/rt/modulator';
         var payloadRt = '{"idTrans": 0,"data": {"status": true,"period": 5,"timeout": 10000}}';
         var topicGetMqtt = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/cfg/mqtt_user';
-        var topicGetMenn = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/mennekes';
-        var topicGetSchuko = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/schuko';
         var topicGetSysBoot = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/boot/sys';
         var payloadGet = '{"idTrans": 0}'
-        var topicStartStopConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes';
-        var topicStartStopConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/schuko';
         var payloadStart = '{"idTrans":49685,"header":{"timestamp":1665381726837, "heapFree":0}, "data":{"uid":1, "source":"app", "priority":0,"action":1,"user":"","group":0}}';
         var payloadStop = '{"idTrans":49685,"header":{"timestamp":1665381726837, "heapFree":0}, "data":{"uid":1, "source":"app", "priority":0,"action":0,"user":"","group":0}}';
+        if (serialNumber[4]=='3'){
+            
+            topicToSubscribeConn1 = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/value/evsm/mennekes';
+            topicToSubscribeConn2 = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/value/evsm/schuko';
+            topicGetConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/mennekes';
+            topicGetConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/schuko';
+            topicStartStopConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes';
+            topicStartStopConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/schuko';
+            model='UNI';
+
+        }else{
+            topicToSubscribeConn1 = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/value/evsm/mennekes1';
+            topicToSubscribeConn2 = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/value/evsm/mennekes2';
+            topicGetConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/mennekes1';
+            topicGetConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/mennekes2';
+            topicStartStopConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes1';
+            topicStartStopConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes2';
+            model='COMBIPLUS'
+        }
         node.on('input', function(msg) {
             console.log(msg.payload);
             if(msg.payload==="StartConn1"){
@@ -239,19 +276,19 @@ module.exports = function(RED) {
             subscribeTopics(client, topicToSubscribe_rt); 
             subscribeTopics(client, topicToSubscribe_boot_sys);     
             subscribeTopics(client, topicToSubscribe_mqtt);    
-            subscribeTopics(client, topicToSubscribe_menk);   
-            subscribeTopics(client, topicToSubscribe_schuko);  
+            subscribeTopics(client, topicToSubscribeConn1);   
+            subscribeTopics(client, topicToSubscribeConn2);  
             // Publicación de topics
             publishTopic(client, topicGetMqtt, payloadGet); 
-            publishTopic(client, topicGetMenn, payloadGet);
+            publishTopic(client, topicGetConn1, payloadGet);
             publishTopic(client, topicGetSysBoot, payloadGet);
-            publishTopic(client, topicGetSchuko, payloadGet);
+            publishTopic(client, topicGetConn2, payloadGet);
             publishTopic(client, topicSetRt, payloadRt);
             // Publicación síncrona de topics tipo get
             setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet);}, 6000);        // 6000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetMenn, payloadGet);}, 4000);        // 4000 milisegundos  
+            setInterval(function() {publishTopic(client, topicGetConn1, payloadGet);}, 4000);        // 4000 milisegundos  
             setInterval(function() {publishTopic(client, topicGetSysBoot, payloadGet);}, 7000);     // 7000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetSchuko, payloadGet);}, 5000);      // 5000 milisegundos
+            setInterval(function() {publishTopic(client, topicGetConn2, payloadGet);}, 5000);      // 5000 milisegundos
             // Publicación síncrona de topics tipo set
             setInterval(function() {publishTopic(client, topicSetRt, payloadRt);}, 10000);          // 10000 milisegundos
         });
@@ -267,9 +304,9 @@ module.exports = function(RED) {
             // Envía el mensaje procesado a la salida correspondiente
             var msgRt=null;
             var msgBootSys=null;
-            var msgMenn = null;
+            var msgConn1 = null;
             var msgMqtt = null;
-            var msgSchuko = null;
+            var msgConn2 = null;
             if(topic!= topicToSubscribe_init_boot_sys){
                 switch (topic) {
                     case topicToSubscribe_rt:
@@ -281,20 +318,20 @@ module.exports = function(RED) {
                     case topicToSubscribe_mqtt:
                         msgMqtt=loadMqttParam(topic, jsonDataConv);
                         break;
-                    case topicToSubscribe_menk:
-                        msgMenn=loadMennParam(topic, jsonDataConv);
+                    case topicToSubscribeConn1:
+                        msgConn1=loadConn1Param(topic, jsonDataConv, model);
                         break;
-                    case topicToSubscribe_schuko:
-                        msgSchuko=loadSchukoParam(topic, jsonDataConv);
+                    case topicToSubscribeConn2:
+                        msgConn2=loadConn2Param(topic, jsonDataConv, model);
                         break;
                 }     
                 // Envía el mensaje a la salida correspondiente
                 console.log(msgRt);
                 console.log(msgMqtt);
                 console.log(msgBootSys);
-                console.log(msgMenn);
-                console.log(msgSchuko);
-                node.send([msgRt, msgMqtt, msgBootSys, msgMenn, msgSchuko]);
+                console.log(msgConn1);
+                console.log(msgConn2);
+                node.send([msgRt, msgMqtt, msgBootSys, msgConn1, msgConn2]);
             }else{
                 publishTopic(topicSetRt, payloadRt)
             }
