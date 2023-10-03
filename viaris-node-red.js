@@ -205,6 +205,8 @@ function publishTopic(clientMqtt, topic, mensaje){
     });
 }
 module.exports = function(RED) {
+    var registeredSerialNumbers = [];
+    var connections = [];
     function ViarisNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
@@ -212,15 +214,29 @@ module.exports = function(RED) {
         var brokerServer = config.brokerServer;
         var username = config.username;
         var password = config.password;
+         // Comprobar si ya existe una conexión para este número de serie
+        // Registra el número de serie si aún no está registrado
+        if (!registeredSerialNumbers.includes(serialNumber)) {
+            registeredSerialNumbers.push(serialNumber);
+            connections.push(null); // Agrega una entrada nula al array de conexiones
+        }
+
         // Configura los detalles de conexión MQTT
         var mqttOptions = {
-            clientId: 'ViarisClient',   // Nombre del cliente MQTT
+            clientId: 'ViarisClient_' + serialNumber, // Nombre del cliente MQTT con número de serie
             username: username,         // Usuario (si es necesario)
             password: password          // Contraseña (si es necesario)
         };
         brokerServer = "mqtt://" + brokerServer;
-        // Crea una conexión MQTT
-        var client = mqtt.connect(brokerServer, mqttOptions);
+
+        // Crea una nueva conexión MQTT o recupera la existente
+        if (!connections[registeredSerialNumbers.indexOf(serialNumber)]) {
+            connections[registeredSerialNumbers.indexOf(serialNumber)] = mqtt.connect(brokerServer, mqttOptions);
+        }
+
+        // Obtiene la conexión MQTT para este número de serie
+        var client = connections[registeredSerialNumbers.indexOf(serialNumber)];
+        console.log()
         var topicToSubscribeConn1, topicToSubscribeConn2, topicGetConn1, topicGetConn2, topicStartStopConn1, topicStartStopConn2, model;
         // Suscripción a los topics
         var shortSerialNumber = "0" + serialNumber.slice(-5);
@@ -340,8 +356,12 @@ module.exports = function(RED) {
 
         // Manejador de cierre del nodo
         node.on('close', function(done) {
-            // Cierra la conexión MQTT antes de que el nodo se cierre
-            client.end(done);
+            // Cierra la conexión MQTT solo si este nodo es el último en usarla
+            if (client && client.connected) {
+                client.end(done);
+            } else {
+                done();
+            }
         });
     }
     RED.nodes.registerType("viaris-node-red",ViarisNode);

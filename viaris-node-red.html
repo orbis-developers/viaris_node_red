@@ -3,6 +3,7 @@
         category: 'viaris',
         color: '#a6bbcf',
         defaults: {
+            name: {value:"viaris-node-red", required: true},
             serialNumber: { value: "", required: true },
             brokerServer: { value: "", required: true },
             username: { value: "", required: true },
@@ -34,6 +35,7 @@
         },
         icon: "icon-viaris.png",
         oneditprepare: function () {
+            $("#node-input-name").val(this.name);
             $("#node-input-serialNumber").val(this.serialNumber);
             $("#node-input-brokerServer").val(this.brokerServer);
             $("#node-input-username").val(this.username);
@@ -41,6 +43,7 @@
         },
         oneditcancel: function () {
             // Restablecer los campos si se cancela la edición
+            $("#node-input-name").val(this.name);
             $("#node-input-serialNumber").val(this.serialNumber);
             $("#node-input-brokerServer").val(this.brokerServer);
             $("#node-input-username").val(this.username);
@@ -52,6 +55,10 @@
     });
 </script>
 <script type="text/html" data-template-name="viaris-node-red">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" ng-model="name">
+    </div>
     <div class="form-row">
         <label for="node-input-serialNumber"><i class="fa fa-mobile"></i> Serial Number</label>
         <input type="text" id="node-input-serialNumber" placeholder="Serial Number" ng-model="serialNumber">
