@@ -75,6 +75,18 @@
         <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
         <input type="password" id="node-input-password" placeholder="Password" ng-model="password">
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#node-input-serialNumber").on('blur', function() {
+                var serialNumber = $(this).val();
+                var regex = /^(EVVC3|EVVC4)\d{8}$/;  
+                if (!regex.test(serialNumber)) {
+                    // El número de serie no cumple con el formato deseado, muestra una alerta
+                    window.alert("Error: Invalid serial number");
+                }
+            });
+        });
+    </script>
 </script>
 
 <script type="text/html" data-help-name="viaris-node-red">
