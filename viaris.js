@@ -214,6 +214,9 @@ module.exports = function(RED) {
         var brokerServer = config.brokerServer;
         var username = config.username;
         var password = config.password;
+        var port = config.port;
+    
+
          // Comprobar si ya existe una conexión para este número de serie
         // Registra el número de serie si aún no está registrado
         if (!registeredSerialNumbers.includes(serialNumber)) {
@@ -225,7 +228,8 @@ module.exports = function(RED) {
         var mqttOptions = {
             clientId: 'ViarisClient_' + serialNumber, // Nombre del cliente MQTT con número de serie
             username: username,         // Usuario (si es necesario)
-            password: password          // Contraseña (si es necesario)
+            password: password,         // Contraseña (si es necesario)
+            port: port,
         };
         brokerServer = "mqtt://" + brokerServer;
 

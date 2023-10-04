@@ -7,7 +7,8 @@
             serialNumber: { value: "", required: true },
             brokerServer: { value: "", required: true },
             username: { value: "", required: true },
-            password: { value: "", required: true }
+            password: { value: "", required: true },
+            port: {value:"1883", required: true},
         },
         inputs:1,
         outputs:5,
@@ -40,6 +41,7 @@
             $("#node-input-brokerServer").val(this.brokerServer);
             $("#node-input-username").val(this.username);
             $("#node-input-password").val(this.password);
+            $("#node-input-port").val(this.port);
         },
         oneditcancel: function () {
             // Restablecer los campos si se cancela la edición
@@ -48,6 +50,7 @@
             $("#node-input-brokerServer").val(this.brokerServer);
             $("#node-input-username").val(this.username);
             $("#node-input-password").val(this.password);
+            $("#node-input-port").val(this.port);
         },
         label: function() {
             return this.name||"viaris";
@@ -74,6 +77,10 @@
     <div class="form-row">
         <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
         <input type="password" id="node-input-password" placeholder="Password" ng-model="password">
+    </div>
+    <div class="form-row">
+        <label for="node-input-port"><i class="fa fa-server"></i> Port</label>
+        <input type="text" id="node-input-port" placeholder="Port" ng-model="port">
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -109,6 +116,10 @@
             <span class="property-type">string</span>
         </dt>
         <dd>Broker password</dd>
+        <dt>Port
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Broker port, default 1883</dd>
     </dl>
     <h3>Outputs</h3>
     <ol class="node-ports">
