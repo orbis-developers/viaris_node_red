@@ -1,16 +1,20 @@
 {
-  "name": "viaris-node-red",
-  "version": "0.1.0",
+  "name": "@orbis/node-red-viaris",
+  "version": "0.0.1",
   "description": "Monitor viaris EV charger.",
-  "main": "viaris-node-red.js",
+  "main": "viaris.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "HGC72",
   "license": "ISC",
+  "keywords": [
+    "node-red"
+  ],
   "node-red": {
+    "version": ">=3.1.0",
     "nodes": {
-      "viaris-node-red": "viaris-node-red.js"
+      "viaris": "viaris.js"
     }
   },
   "dependencies": {

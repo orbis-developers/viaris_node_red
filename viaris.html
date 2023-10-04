@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('viaris-node-red',{
-        category: 'viaris',
+    RED.nodes.registerType('viaris',{
+        category: 'viaris Ev charger',
         color: '#a6bbcf',
         defaults: {
-            name: {value:"viaris-node-red", required: true},
+            name: {value:"viaris", required: true},
             serialNumber: { value: "", required: true },
             brokerServer: { value: "", required: true },
             username: { value: "", required: true },
@@ -50,11 +50,11 @@
             $("#node-input-password").val(this.password);
         },
         label: function() {
-            return this.name||"viaris-node-red";
+            return this.name||"viaris";
         }
     });
 </script>
-<script type="text/html" data-template-name="viaris-node-red">
+<script type="text/html" data-template-name="viaris">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" ng-model="name">
@@ -79,7 +79,7 @@
         $(document).ready(function() {
             $("#node-input-serialNumber").on('blur', function() {
                 var serialNumber = $(this).val();
-                var regex = /^(EVVC3|EVVC4)\d{8}$/;  
+                regex = /^(EVVC3|EVVC4)[0-9A-Fa-f]{8}$/;
                 if (!regex.test(serialNumber)) {
                     // El número de serie no cumple con el formato deseado, muestra una alerta
                     window.alert("Error: Invalid serial number");
@@ -89,8 +89,8 @@
     </script>
 </script>
 
-<script type="text/html" data-help-name="viaris-node-red">
-    <p>viaris-node-red allows communication between an MQTT broker server and a Viaris electric vehicle charger to achieve monitoring of states and measurements related to the charging processes.</p>
+<script type="text/html" data-help-name="viaris">
+    <p>viaris allows communication between an MQTT broker server and a Viaris electric vehicle charger to achieve monitoring of states and measurements related to the charging processes.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>Serial number
@@ -228,7 +228,7 @@
     <p><code>- schuko ON, not load</code></p>
     <p><code>- schuko OFF</code></p>
     <p></p>
-    <p>To start or stop a charge, you can connect to the viaris-node-red input an injection node with these <code>msg.payload</code> strings:</p>
+    <p>To start or stop a charge, you can connect to the viaris input an injection node with these <code>msg.payload</code> strings:</p>
     <p><code>StartConn1</code> :Start charging Connector 1</p>
     <p><code>StopConn1</code> :Stop charging Connector 1</p>
     <p><code>StartConn2</code> :Start charging Connector 2</p>

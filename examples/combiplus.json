@@ -1,0 +1,240 @@
+[
+    {
+        "id": "8f899f3065135e16",
+        "type": "tab",
+        "label": "COMBIPLUS",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f38e899260ab37c3",
+        "type": "debug",
+        "z": "8f899f3065135e16",
+        "name": "Modulator",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8d25cd92ea5cf598",
+        "type": "debug",
+        "z": "8f899f3065135e16",
+        "name": "MQTT_cfg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d10cd337e1617232",
+        "type": "debug",
+        "z": "8f899f3065135e16",
+        "name": "Boot_sys",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d99cdc67e34f2f05",
+        "type": "debug",
+        "z": "8f899f3065135e16",
+        "name": "Mennekes 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "911602fea8a3a37c",
+        "type": "debug",
+        "z": "8f899f3065135e16",
+        "name": "Mennekes 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "59b0fed73a76540b",
+        "type": "inject",
+        "z": "8f899f3065135e16",
+        "name": "Start mennekes 1 charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StartConn1",
+        "payloadType": "str",
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "e843f5aeb9cadfca"
+            ]
+        ]
+    },
+    {
+        "id": "166505e8d9636a5f",
+        "type": "inject",
+        "z": "8f899f3065135e16",
+        "name": "Stop mennekes 1 charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StopConn1",
+        "payloadType": "str",
+        "x": 450,
+        "y": 380,
+        "wires": [
+            [
+                "e843f5aeb9cadfca"
+            ]
+        ]
+    },
+    {
+        "id": "29d0b440fb236e7b",
+        "type": "inject",
+        "z": "8f899f3065135e16",
+        "name": "Stop mennekes 2 charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StopConn2",
+        "payloadType": "str",
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "e843f5aeb9cadfca"
+            ]
+        ]
+    },
+    {
+        "id": "a6b5fa625a3c2144",
+        "type": "inject",
+        "z": "8f899f3065135e16",
+        "name": "Start mennekes 2 charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StartConn2",
+        "payloadType": "str",
+        "x": 440,
+        "y": 480,
+        "wires": [
+            [
+                "e843f5aeb9cadfca"
+            ]
+        ]
+    },
+    {
+        "id": "e843f5aeb9cadfca",
+        "type": "viaris",
+        "z": "8f899f3065135e16",
+        "name": "EVVC4AC543DCC",
+        "serialNumber": "EVVC4AC543DCC",
+        "brokerServer": "1.1.2.243",
+        "username": "MQTTBROKER",
+        "password": "Orbis2022",
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "f38e899260ab37c3"
+            ],
+            [
+                "8d25cd92ea5cf598"
+            ],
+            [
+                "d10cd337e1617232"
+            ],
+            [
+                "d99cdc67e34f2f05"
+            ],
+            [
+                "911602fea8a3a37c"
+            ]
+        ]
+    }
+]

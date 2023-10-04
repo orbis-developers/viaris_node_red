@@ -1,7 +1,7 @@
-# viaris_node_red
+# viaris_node_red 
 Project for the Creation of a Node-RED Node for MQTT Communications with Viaris Chargers
 
-![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/c8af4565-602d-4b30-a6e4-11b2a58cc5b4)
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/9093499c-4c55-4a5f-8dd4-435b23f3eba7)
 
 
 ## Input configuration
@@ -14,12 +14,12 @@ viaris_node_red has to be configured with the charger serial number and the righ
 viaris_node_red has an input to start and stop the charge in each connector and five differents outputs, that allows monitoring measures, mqtt configuration parameters, charger general information, connector 1 and connector 2 states.
 
 
-![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/480e6941-5d1f-4ae5-8ab2-d3862ff28ed9)
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/e174e2bc-bf4d-4518-8865-0f117bf0ea4b)
 
 ## General information
-On the help tab you can find detailed information about viaris-node-red
+On the help tab you can find detailed information about viaris node
 
-![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/d8d2e97d-1203-476b-bc8c-88b4399be524)
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/1b2c1269-b804-4890-a3b6-9c8c136314c4)
 
 ## Dashboard
 Node-RED has the possibility of representing the data obtained by the node in a more visual format through the dashboard.

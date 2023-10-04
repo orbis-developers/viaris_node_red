@@ -1,0 +1,240 @@
+[
+    {
+        "id": "b15ea5fc4fd43ba8",
+        "type": "tab",
+        "label": "UNI",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0b8bd925e0799aeb",
+        "type": "debug",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Modulator",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "03533180fa4aa628",
+        "type": "debug",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "MQTT_cfg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3d7864b6a1ddf862",
+        "type": "debug",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Boot_sys",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b39bc18b31288830",
+        "type": "debug",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Mennekes",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7e1ba4c1992ef0bb",
+        "type": "debug",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "schuko",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e6be54456990c09a",
+        "type": "inject",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Start mennekes charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StartConn1",
+        "payloadType": "str",
+        "x": 310,
+        "y": 120,
+        "wires": [
+            [
+                "12b7a1df4661fe87"
+            ]
+        ]
+    },
+    {
+        "id": "ccf73b960895659e",
+        "type": "inject",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Stop mennekes charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StopConn1",
+        "payloadType": "str",
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "12b7a1df4661fe87"
+            ]
+        ]
+    },
+    {
+        "id": "e110b76101b03f86",
+        "type": "inject",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Stop schuko charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StopConn2",
+        "payloadType": "str",
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "12b7a1df4661fe87"
+            ]
+        ]
+    },
+    {
+        "id": "1491e708adadb675",
+        "type": "inject",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Start schuko charging",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "StartConn2",
+        "payloadType": "str",
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "12b7a1df4661fe87"
+            ]
+        ]
+    },
+    {
+        "id": "12b7a1df4661fe87",
+        "type": "viaris",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "EVVC351187AA0",
+        "serialNumber": "EVVC351187AA0",
+        "brokerServer": "1.1.2.243",
+        "username": "MQTTBROKER",
+        "password": "Orbis2022",
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "0b8bd925e0799aeb"
+            ],
+            [
+                "03533180fa4aa628"
+            ],
+            [
+                "3d7864b6a1ddf862"
+            ],
+            [
+                "b39bc18b31288830"
+            ],
+            [
+                "7e1ba4c1992ef0bb"
+            ]
+        ]
+    }
+]

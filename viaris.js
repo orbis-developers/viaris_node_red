@@ -364,5 +364,5 @@ module.exports = function(RED) {
             }
         });
     }
-    RED.nodes.registerType("viaris-node-red",ViarisNode);
+    RED.nodes.registerType("viaris",ViarisNode);
 }
