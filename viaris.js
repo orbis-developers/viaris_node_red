@@ -194,13 +194,17 @@ function subscribeTopics(clientMqtt, topic){
         }
     });
 }
-function publishTopic(clientMqtt, topic, mensaje){
-    clientMqtt.publish(topic, mensaje, function (err) {
+function publishTopic(clientMqtt, topic, mensaje, qos){
+    var publicOptions={
+        qos:qos,
+    }
+    clientMqtt.publish(topic, mensaje, publicOptions, function (err) {
         if (err) {
           console.error('Error al publicar el mensaje:', err);
         } else {
           console.log('Topic MQTT publicado:', topic);
           console.log('Payload MQTT publicado:', mensaje);
+          console.log('Calidad de servicio qos', publicOptions)
         }
     });
 }
@@ -215,8 +219,7 @@ module.exports = function(RED) {
         var username = config.username;
         var password = config.password;
         var port = config.port;
-    
-
+        var qos = parseInt(config.qos);
          // Comprobar si ya existe una conexión para este número de serie
         // Registra el número de serie si aún no está registrado
         if (!registeredSerialNumbers.includes(serialNumber)) {
@@ -237,10 +240,8 @@ module.exports = function(RED) {
         if (!connections[registeredSerialNumbers.indexOf(serialNumber)]) {
             connections[registeredSerialNumbers.indexOf(serialNumber)] = mqtt.connect(brokerServer, mqttOptions);
         }
-
         // Obtiene la conexión MQTT para este número de serie
         var client = connections[registeredSerialNumbers.indexOf(serialNumber)];
-        console.log()
         var topicToSubscribeConn1, topicToSubscribeConn2, topicGetConn1, topicGetConn2, topicStartStopConn1, topicStartStopConn2, model;
         // Suscripción a los topics
         var shortSerialNumber = "0" + serialNumber.slice(-5);
@@ -278,13 +279,13 @@ module.exports = function(RED) {
         node.on('input', function(msg) {
             console.log(msg.payload);
             if(msg.payload==="StartConn1"){
-                publishTopic(client, topicStartStopConn1, payloadStart);   
+                publishTopic(client, topicStartStopConn1, payloadStart, qos);
             }else if(msg.payload==="StopConn1"){
-                publishTopic(client, topicStartStopConn1, payloadStop);     
+                publishTopic(client, topicStartStopConn1, payloadStop, qos);
             }else if(msg.payload==="StartConn2"){
-                publishTopic(client, topicStartStopConn2, payloadStart);     
+                publishTopic(client, topicStartStopConn2, payloadStart, qos);
             }else if(msg.payload==="StopConn2"){
-                publishTopic(client, topicStartStopConn2, payloadStop);     
+                publishTopic(client, topicStartStopConn2, payloadStop,qos);
             }     
         });
         // Manejador del evento "connect"
@@ -299,21 +300,27 @@ module.exports = function(RED) {
             subscribeTopics(client, topicToSubscribeConn1);   
             subscribeTopics(client, topicToSubscribeConn2);  
             // Publicación de topics
-            publishTopic(client, topicGetMqtt, payloadGet); 
-            publishTopic(client, topicGetConn1, payloadGet);
-            publishTopic(client, topicGetSysBoot, payloadGet);
-            publishTopic(client, topicGetConn2, payloadGet);
-            publishTopic(client, topicSetRt, payloadRt);
+            publishTopic(client, topicGetMqtt, payloadGet, qos); 
+            publishTopic(client, topicGetConn1, payloadGet, qos);
+            publishTopic(client, topicGetSysBoot, payloadGet, qos);
+            publishTopic(client, topicGetConn2, payloadGet, qos);
+            publishTopic(client, topicSetRt, payloadRt, qos);
             // Publicación síncrona de topics tipo get
-            setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet);}, 6000);        // 6000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetConn1, payloadGet);}, 4000);        // 4000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetSysBoot, payloadGet);}, 7000);     // 7000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetConn2, payloadGet);}, 5000);      // 5000 milisegundos
+            setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet, qos);}, 6000);        // 6000 milisegundos  
+            setInterval(function() {publishTopic(client, topicGetConn1, payloadGet, qos);}, 4000);       // 4000 milisegundos  
+            setInterval(function() {publishTopic(client, topicGetSysBoot, payloadGet, qos);}, 7000);     // 7000 milisegundos  
+            setInterval(function() {publishTopic(client, topicGetConn2, payloadGet, qos);}, 5000);       // 5000 milisegundos
             // Publicación síncrona de topics tipo set
-            setInterval(function() {publishTopic(client, topicSetRt, payloadRt);}, 10000);          // 10000 milisegundos
+            setInterval(function() {publishTopic(client, topicSetRt, payloadRt, qos);}, 10000);          // 10000 milisegundos
         });
         client.on('close', function() {
             node.status({ fill: "red", shape: "dot", text: "MQTT disconnected" });
+        });
+        client.on('offline', function() {
+            node.status({ fill: "red", shape: "dot", text: "Client disconnected" });
+        });
+        client.on('error', function() {
+            node.status({ fill: "red", shape: "dot", text: "Error" });
         });
        // Manejador de mensajes entrantes
        client.on('message', function(topic, message) {
@@ -353,11 +360,10 @@ module.exports = function(RED) {
                 console.log(msgConn2);
                 node.send([msgRt, msgMqtt, msgBootSys, msgConn1, msgConn2]);
             }else{
-                publishTopic(topicSetRt, payloadRt)
+                publishTopic(topicSetRt, payloadRt,qos)
             }
 
         });
-
         // Manejador de cierre del nodo
         node.on('close', function(done) {
             // Cierra la conexión MQTT solo si este nodo es el último en usarla
