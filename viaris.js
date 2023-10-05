@@ -218,8 +218,12 @@ module.exports = function(RED) {
         var brokerServer = config.brokerServer;
         var username = config.username;
         var password = config.password;
-        var port = config.port;
+        var port =parseInt(config.port);
         var qos = parseInt(config.qos);
+        var keepalive = parseInt(config.keepalive);
+        console.log("Keepalive", keepalive);
+        console.log("qos", qos);
+        console.log("port", port);
          // Comprobar si ya existe una conexión para este número de serie
         // Registra el número de serie si aún no está registrado
         if (!registeredSerialNumbers.includes(serialNumber)) {
@@ -233,6 +237,7 @@ module.exports = function(RED) {
             username: username,         // Usuario (si es necesario)
             password: password,         // Contraseña (si es necesario)
             port: port,
+            keepalive: keepalive
         };
         brokerServer = "mqtt://" + brokerServer;
 
