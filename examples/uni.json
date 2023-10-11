@@ -117,7 +117,7 @@
         "y": 120,
         "wires": [
             [
-                "12b7a1df4661fe87"
+                "dd95c5b37c70fe70"
             ]
         ]
     },
@@ -146,7 +146,7 @@
         "y": 160,
         "wires": [
             [
-                "12b7a1df4661fe87"
+                "dd95c5b37c70fe70"
             ]
         ]
     },
@@ -175,7 +175,7 @@
         "y": 300,
         "wires": [
             [
-                "12b7a1df4661fe87"
+                "dd95c5b37c70fe70"
             ]
         ]
     },
@@ -204,12 +204,12 @@
         "y": 260,
         "wires": [
             [
-                "12b7a1df4661fe87"
+                "dd95c5b37c70fe70"
             ]
         ]
     },
     {
-        "id": "12b7a1df4661fe87",
+        "id": "dd95c5b37c70fe70",
         "type": "viaris",
         "z": "b15ea5fc4fd43ba8",
         "name": "EVVC351187AA0",
@@ -217,6 +217,9 @@
         "brokerServer": "1.1.2.243",
         "username": "MQTTBROKER",
         "password": "Orbis2022",
+        "port": "1883",
+        "qos": "0",
+        "keepalive": "180",
         "x": 670,
         "y": 200,
         "wires": [

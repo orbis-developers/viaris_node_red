@@ -1,6 +1,6 @@
 [
     {
-        "id": "8f899f3065135e16",
+        "id": "be3cb7847700b55b",
         "type": "tab",
         "label": "COMBIPLUS",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "f38e899260ab37c3",
+        "id": "374eb37d29d622a2",
         "type": "debug",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Modulator",
         "active": true,
         "tosidebar": true,
@@ -21,13 +21,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1080,
-        "y": 360,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "8d25cd92ea5cf598",
+        "id": "9d4ddf52587920a5",
         "type": "debug",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "MQTT_cfg",
         "active": true,
         "tosidebar": true,
@@ -38,13 +38,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1090,
-        "y": 420,
+        "y": 360,
         "wires": []
     },
     {
-        "id": "d10cd337e1617232",
+        "id": "64712b08896873b3",
         "type": "debug",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Boot_sys",
         "active": true,
         "tosidebar": true,
@@ -55,13 +55,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1080,
-        "y": 480,
+        "y": 420,
         "wires": []
     },
     {
-        "id": "d99cdc67e34f2f05",
+        "id": "29719b8ce7d81769",
         "type": "debug",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Mennekes 1",
         "active": true,
         "tosidebar": true,
@@ -72,13 +72,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1090,
-        "y": 540,
+        "y": 480,
         "wires": []
     },
     {
-        "id": "911602fea8a3a37c",
+        "id": "6f0550c7372744f9",
         "type": "debug",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Mennekes 2",
         "active": true,
         "tosidebar": true,
@@ -89,13 +89,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1080,
-        "y": 620,
+        "y": 560,
         "wires": []
     },
     {
-        "id": "59b0fed73a76540b",
+        "id": "fdc156848ddb304c",
         "type": "inject",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Start mennekes 1 charging",
         "props": [
             {
@@ -117,14 +117,14 @@
         "y": 340,
         "wires": [
             [
-                "e843f5aeb9cadfca"
+                "edbf646b7d36ddd4"
             ]
         ]
     },
     {
-        "id": "166505e8d9636a5f",
+        "id": "45a7d6693b81efeb",
         "type": "inject",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Stop mennekes 1 charging",
         "props": [
             {
@@ -146,14 +146,14 @@
         "y": 380,
         "wires": [
             [
-                "e843f5aeb9cadfca"
+                "edbf646b7d36ddd4"
             ]
         ]
     },
     {
-        "id": "29d0b440fb236e7b",
+        "id": "46f134e4474a3e6e",
         "type": "inject",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Stop mennekes 2 charging",
         "props": [
             {
@@ -175,14 +175,14 @@
         "y": 520,
         "wires": [
             [
-                "e843f5aeb9cadfca"
+                "edbf646b7d36ddd4"
             ]
         ]
     },
     {
-        "id": "a6b5fa625a3c2144",
+        "id": "b61b94a655423552",
         "type": "inject",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "Start mennekes 2 charging",
         "props": [
             {
@@ -204,36 +204,39 @@
         "y": 480,
         "wires": [
             [
-                "e843f5aeb9cadfca"
+                "edbf646b7d36ddd4"
             ]
         ]
     },
     {
-        "id": "e843f5aeb9cadfca",
+        "id": "edbf646b7d36ddd4",
         "type": "viaris",
-        "z": "8f899f3065135e16",
+        "z": "be3cb7847700b55b",
         "name": "EVVC4AC543DCC",
         "serialNumber": "EVVC4AC543DCC",
         "brokerServer": "1.1.2.243",
         "username": "MQTTBROKER",
         "password": "Orbis2022",
-        "x": 830,
-        "y": 460,
+        "port": "1883",
+        "qos": "0",
+        "keepalive": "180",
+        "x": 770,
+        "y": 400,
         "wires": [
             [
-                "f38e899260ab37c3"
+                "374eb37d29d622a2"
             ],
             [
-                "8d25cd92ea5cf598"
+                "9d4ddf52587920a5"
             ],
             [
-                "d10cd337e1617232"
+                "64712b08896873b3"
             ],
             [
-                "d99cdc67e34f2f05"
+                "29719b8ce7d81769"
             ],
             [
-                "911602fea8a3a37c"
+                "6f0550c7372744f9"
             ]
         ]
     }
