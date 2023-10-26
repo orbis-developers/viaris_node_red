@@ -22,7 +22,10 @@ function loadRtMeasures(topic, jsonData){
             "reactEnergyCon2": convertUnits(jsonData.data.elements[1].now.reactive),
             "totalEnergy": convertUnits(jsonData.data.totalEnergy),
             "relOverload": convertUnits(jsonData.data.relOverload),
-            "totalCurrent": convertUnits(jsonData.data.totalCurrent[0]), 
+            "totalCurrent": convertUnits(jsonData.data.totalCurrent[0]),
+            "battEnergy" : convertUnits(jsonData.data.battEnergy),
+            "fvPower" : jsonData.data.fvPower !== undefined ? convertUnits(jsonData.data.fvPower) : "Only in solar",
+            "instPower": jsonData.data.instPower !== undefined ? convertUnits(jsonData.data.instPower): "Only in solar"
         }
     };
     return msg;
