@@ -83,7 +83,7 @@ function stateMennekes(stateNumber){
             state="Disconnected";
             break;
         case 2:
-            state="Disconnected without permission";
+            state="Disconnected with permission";
             break;
         case 3:
             state="Connected";
