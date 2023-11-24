@@ -4,6 +4,11 @@ Project for the Creation of a Node-RED Node for MQTT Communications with Viaris 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/9093499c-4c55-4a5f-8dd4-435b23f3eba7)
 
 
+## Instalation
+npm install @orbis/node-red-viaris
+
+After installation you will find the node inside the Node-red palette.
+
 ## Input configuration
 viaris_node_red has to be configured with the charger serial number and the right broker mqtt credentials.
 
