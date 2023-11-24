@@ -1,13 +1,13 @@
 {
   "name": "@orbis/node-red-viaris",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Monitor viaris EV charger.",
   "main": "viaris.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "HGC72",
-  "license": "ISC",
+  "author": "HGC72 <developer@orbis.es>",
+  "license": "MIT",
   "keywords": [
     "node-red"
   ],
@@ -19,5 +19,9 @@
   },
   "dependencies": {
     "mqtt": "^5.0.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/orbis-developers/viaris_node_red/issues"
+  },
+  "homepage": "https://github.com/orbis-developers/viaris_node_red"
 }
