@@ -5,7 +5,7 @@ Project for the Creation of a Node-RED Node for MQTT Communications with Viaris 
 
 
 ## Instalation
-npm install @orbis/node-red-viaris
+npm install @orbis-developers/node-red-viaris
 
 After installation you will find the node inside the Node-red palette.
 
