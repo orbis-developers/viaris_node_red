@@ -1,4 +1,4 @@
-# viaris_node_red 
+# node-red-viaris
 Project for the Creation of a Node-RED Node for MQTT Communications with Viaris Chargers
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/9093499c-4c55-4a5f-8dd4-435b23f3eba7)
@@ -10,13 +10,13 @@ npm install @orbis-developers/node-red-viaris
 After installation you will find the node inside the Node-red palette.
 
 ## Input configuration
-viaris_node_red has to be configured with the charger serial number and the right broker mqtt credentials.
+node-red-viaris has to be configured with the charger serial number and the right broker mqtt credentials.
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/d51a18f1-ce23-42a2-bd5c-ce9f04757cfc)
 
 
 ## Inputs/Outputs node
-viaris_node_red has an input to start and stop the charge in each connector and five differents outputs, that allows monitoring measures, mqtt configuration parameters, charger general information, connector 1 and connector 2 states.
+node-red-viaris has an input to start and stop the charge in each connector and five differents outputs, that allows monitoring measures, mqtt configuration parameters, charger general information, connector 1 and connector 2 states.
 
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/50385e24-b06b-4590-b114-431eff7dcb21)
