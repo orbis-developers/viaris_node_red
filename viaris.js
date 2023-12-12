@@ -1,6 +1,6 @@
 var mqtt = require('mqtt');
-// Función para convertir unidades con dos decimales
-// Sirve para watios a kW, Var a kVar
+// Function to convert units with two decimals
+// Used for converting watts to kW, Var to kVar
 function convertUnits(unitInitial) {
     var unitChanged = (unitInitial/ 1000).toFixed(2);
     return unitChanged;
@@ -202,10 +202,8 @@ function loadConn2Param(topic, jsonData, model){
 function subscribeTopics(clientMqtt, topic){
     clientMqtt.subscribe(topic, function(err) {
         if (err) {
-            console.error('Error al suscribirse al topic:', topic);
-        } else {
-            console.log('Suscrito al topic:', topic);
-        }
+            console.error('Error subscribing to the topic:', topic);
+        } 
     });
 }
 function publishTopic(clientMqtt, topic, mensaje, qos){
@@ -214,12 +212,8 @@ function publishTopic(clientMqtt, topic, mensaje, qos){
     }
     clientMqtt.publish(topic, mensaje, publicOptions, function (err) {
         if (err) {
-          console.error('Error al publicar el mensaje:', err);
-        } else {
-          console.log('Topic MQTT publicado:', topic);
-          console.log('Payload MQTT publicado:', mensaje);
-          console.log('Calidad de servicio qos', publicOptions)
-        }
+          console.error('Error publishing the message:', err);
+        } 
     });
 }
 module.exports = function(RED) {
@@ -235,40 +229,41 @@ module.exports = function(RED) {
         var port =parseInt(config.port);
         var qos = parseInt(config.qos);
         var keepalive = parseInt(config.keepalive);
-        console.log("Keepalive", keepalive);
-        console.log("qos", qos);
-        console.log("port", port);
-         // Comprobar si ya existe una conexión para este número de serie
-        // Registra el número de serie si aún no está registrado
+        
+        // Check if a connection already exists for this serial number
+        // Register the serial number if not already registered
+
         if (!registeredSerialNumbers.includes(serialNumber)) {
             registeredSerialNumbers.push(serialNumber);
-            connections.push(null); // Agrega una entrada nula al array de conexiones
+            connections.push(null);  
         }
 
-        // Configura los detalles de conexión MQTT
+        // Configure MQTT connection details
+
         var mqttOptions = {
-            clientId: 'ViarisClient_' + serialNumber, // Nombre del cliente MQTT con número de serie
-            username: username,         // Usuario (si es necesario)
-            password: password,         // Contraseña (si es necesario)
+            clientId: 'ViarisClient_' + serialNumber,  
+            username: username,          
+            password: password,          
             port: port,
             keepalive: keepalive
         };
         brokerServer = "mqtt://" + brokerServer;
 
-        // Crea una nueva conexión MQTT o recupera la existente
+        // Create a new MQTT connection or retrieve the existing one
+
         if (!connections[registeredSerialNumbers.indexOf(serialNumber)]) {
             connections[registeredSerialNumbers.indexOf(serialNumber)] = mqtt.connect(brokerServer, mqttOptions);
         }
-        // Obtiene la conexión MQTT para este número de serie
+        // Get the MQTT connection for this serial number
         var client = connections[registeredSerialNumbers.indexOf(serialNumber)];
         var topicToSubscribeConn1, topicToSubscribeConn2, topicGetConn1, topicGetConn2, topicStartStopConn1, topicStartStopConn2, model;
-        // Suscripción a los topics
+       // Subscription topics
         var shortSerialNumber = "0" + serialNumber.slice(-5);
         var topicToSubscribe_rt = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/streamrt/modulator';
         var topicToSubscribe_boot_sys = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/boot/sys';
         var topicToSubscribe_mqtt = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/cfg/mqtt_user';
         var topicToSubscribe_init_boot_sys = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/init_boot/sys';
-        // Topics de publicación
+        // Publish topics
         var topicSetRt = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/rt/modulator';
         var payloadRt = '{"idTrans": 0,"data": {"status": true,"period": 5,"timeout": 10000}}';
         var topicGetMqtt = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/cfg/mqtt_user';
@@ -307,30 +302,30 @@ module.exports = function(RED) {
                 publishTopic(client, topicStartStopConn2, payloadStop,qos);
             }     
         });
-        // Manejador del evento "connect"
+        // "Connect" event handler
         client.on('connect', function() {
-            // Se ejecuta cuando la conexión con el broker es establecida
-            console.log('Conectado viaris al broker MQTT');
+            // Executed when the connection with the broker is established
+            console.log('Connected Viaris to the MQTT broker.');
             node.status({ fill: "green", shape: "dot", text: "MQTT connected"});
-            // Subscripción de topics
+            // Topic subscription
             subscribeTopics(client, topicToSubscribe_rt); 
             subscribeTopics(client, topicToSubscribe_boot_sys);     
             subscribeTopics(client, topicToSubscribe_mqtt);    
             subscribeTopics(client, topicToSubscribeConn1);   
             subscribeTopics(client, topicToSubscribeConn2);  
-            // Publicación de topics
+            // Topic publishing
             publishTopic(client, topicGetMqtt, payloadGet, qos); 
             publishTopic(client, topicGetConn1, payloadGet, qos);
             publishTopic(client, topicGetSysBoot, payloadGet, qos);
             publishTopic(client, topicGetConn2, payloadGet, qos);
             publishTopic(client, topicSetRt, payloadRt, qos);
-            // Publicación síncrona de topics tipo get
-            setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet, qos);}, 6000);        // 6000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetConn1, payloadGet, qos);}, 4000);       // 4000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetSysBoot, payloadGet, qos);}, 7000);     // 7000 milisegundos  
-            setInterval(function() {publishTopic(client, topicGetConn2, payloadGet, qos);}, 5000);       // 5000 milisegundos
-            // Publicación síncrona de topics tipo set
-            setInterval(function() {publishTopic(client, topicSetRt, payloadRt, qos);}, 10000);          // 10000 milisegundos
+            // Synchronous publishing of 'get' type topics
+            setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet, qos);}, 6000);        // 6000 ms  
+            setInterval(function() {publishTopic(client, topicGetConn1, payloadGet, qos);}, 4000);       // 4000 ms 
+            setInterval(function() {publishTopic(client, topicGetSysBoot, payloadGet, qos);}, 7000);     // 7000 ms
+            setInterval(function() {publishTopic(client, topicGetConn2, payloadGet, qos);}, 5000);       // 5000 ms
+           // Synchronous publishing of 'set' type topics
+            setInterval(function() {publishTopic(client, topicSetRt, payloadRt, qos);}, 10000);          // 10000 ms
         });
         client.on('close', function() {
             node.status({ fill: "red", shape: "dot", text: "MQTT disconnected" });
@@ -341,13 +336,13 @@ module.exports = function(RED) {
         client.on('error', function() {
             node.status({ fill: "red", shape: "dot", text: "Error" });
         });
-       // Manejador de mensajes entrantes
+       // Handler for incoming messages
        client.on('message', function(topic, message) {
-            // topic: El topic donde se recibió el mensaje
-            // message: El mensaje recibido (en formato Buffer)
-            // Realiza acciones con el mensaje recibido y las medidas obtenidas       
+            // topic: The topic where the message was received
+            // message: The received message (in Buffer format)
+            // Perform actions with the received message and the obtained measurements
             var jsonDataConv = JSON.parse(message.toString());
-            // Envía el mensaje procesado a la salida correspondiente
+           // Sends the processed message to the corresponding output
             var msgRt=null;
             var msgBootSys=null;
             var msgConn1 = null;
@@ -371,21 +366,15 @@ module.exports = function(RED) {
                         msgConn2=loadConn2Param(topic, jsonDataConv, model);
                         break;
                 }     
-                // Envía el mensaje a la salida correspondiente
-                console.log(msgRt);
-                console.log(msgMqtt);
-                console.log(msgBootSys);
-                console.log(msgConn1);
-                console.log(msgConn2);
                 node.send([msgRt, msgMqtt, msgBootSys, msgConn1, msgConn2]);
             }else{
                 publishTopic(topicSetRt, payloadRt,qos)
             }
 
         });
-        // Manejador de cierre del nodo
+        // Node close handler
         node.on('close', function(done) {
-            // Cierra la conexión MQTT solo si este nodo es el último en usarla
+            // Close the MQTT connection only if this node is the last one using it
             if (client && client.connected) {
                 client.end(done);
             } else {

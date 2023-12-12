@@ -48,7 +48,7 @@
             $("#node-input-qos").val();
         },
         oneditcancel: function () {
-            // Restablecer los campos si se cancela la edición
+            // Reset fields if editing is canceled
             $("#node-input-name").val(this.name);
             $("#node-input-serialNumber").val(this.serialNumber);
             $("#node-input-brokerServer").val(this.brokerServer);
@@ -106,25 +106,22 @@
                 var serialNumber = $(this).val();
                 regex = /^(EVVC3|EVVC4)[0-9A-Fa-f]{8}$/;
                 if (!regex.test(serialNumber)) {
-                    // El número de serie no cumple con el formato deseado, muestra una alerta
                     window.alert("Error: Invalid serial number");
-                    $(this).val('');    // Se vacía el campo
+                    $(this).val('');     
                 }
             });
             $("#node-input-port").on('change', function() {
                 var port = $(this).val();
                 if (port<0 || port>65535) {
-                    // El número de puerto no cumple con el formato deseado, muestra una alerta
                     window.alert("Error: Invalid port number");
-                    $(this).val('');    // Se vacía el campo
+                    $(this).val('');     
                 }
             });
             $("#node-input-keepalive").on('change', function() {
                 var keepAlive = $(this).val();
                 if (keepAlive<0 || keepAlive>65535) {
-                    // El valor de keepalive no cumple con el formato deseado, muestra una alerta
                     window.alert("Error: Invalid keepalive value");
-                    $(this).val('');    // Se vacía el campo
+                    $(this).val('');    
                 }
             });
         });
