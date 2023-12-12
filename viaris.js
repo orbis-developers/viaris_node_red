@@ -12,10 +12,26 @@ function loadRtMeasures(topic, jsonData){
             "evsePower": convertUnits(jsonData.data.evsePower),
             "homePower": convertUnits(jsonData.data.homePower),
             "totalPower": convertUnits(jsonData.data.totalPower),
-            "actPwCon1": convertUnits(jsonData.data.elements[0].now.aPow[0]),
-            "actPwCon2": convertUnits(jsonData.data.elements[1].now.aPow[0]),
-            "reactPwCon1": convertUnits(jsonData.data.elements[0].now.rPow[0]),
-            "reactPwCon2": convertUnits(jsonData.data.elements[1].now.rPow[0]),
+            "actPwCon1": [
+                convertUnits(jsonData.data.elements[0].now.aPow[0]),
+                convertUnits(jsonData.data.elements[0].now.aPow[1]),
+                convertUnits(jsonData.data.elements[0].now.aPow[2])
+            ],
+            "actPwCon2": [
+                convertUnits(jsonData.data.elements[1].now.aPow[0]),
+                convertUnits(jsonData.data.elements[1].now.aPow[1]),
+                convertUnits(jsonData.data.elements[1].now.aPow[2])
+            ],
+            "reactPwCon1": [
+                convertUnits(jsonData.data.elements[0].now.rPow[0]),
+                convertUnits(jsonData.data.elements[0].now.rPow[1]),
+                convertUnits(jsonData.data.elements[0].now.rPow[2])
+            ],
+            "reactPwCon2": [
+                convertUnits(jsonData.data.elements[1].now.rPow[0]),
+                convertUnits(jsonData.data.elements[1].now.rPow[1]),
+                convertUnits(jsonData.data.elements[1].now.rPow[2])
+            ],
             "actEnergyCon1": convertUnits(jsonData.data.elements[0].now.active),
             "actEnergyCon2": convertUnits(jsonData.data.elements[1].now.active),
             "reactEnergyCon1": convertUnits(jsonData.data.elements[0].now.reactive),
