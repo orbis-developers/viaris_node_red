@@ -31,8 +31,7 @@ node-red-viaris has to be configured with the charger serial number and the righ
 ## Inputs/Outputs node
 node-red-viaris features an input to control the start and stop of charging, and it also offers five separate outputs that provide monitoring capabilities. These outputs cover measures, MQTT configuration parameters, general charger information, and the states of connectors 1 and 2.
 
-
-![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/50385e24-b06b-4590-b114-431eff7dcb21)
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/87ab24b8-9e34-4bec-8394-433e657c4f50)
 
 
 ## Predefined Examples
