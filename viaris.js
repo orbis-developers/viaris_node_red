@@ -14,8 +14,8 @@ function loadRtMeasures(topic, jsonData){
             "totalPower": convertUnits(jsonData.data.totalPower),
             "actPwCon1": convertUnits(jsonData.data.elements[0].now.aPow[0]),
             "actPwCon2": convertUnits(jsonData.data.elements[1].now.aPow[0]),
-            "rectPwCon1": convertUnits(jsonData.data.elements[0].now.rPow[0]),
-            "rectPwCon2": convertUnits(jsonData.data.elements[1].now.rPow[0]),
+            "reactPwCon1": convertUnits(jsonData.data.elements[0].now.rPow[0]),
+            "reactPwCon2": convertUnits(jsonData.data.elements[1].now.rPow[0]),
             "actEnergyCon1": convertUnits(jsonData.data.elements[0].now.active),
             "actEnergyCon2": convertUnits(jsonData.data.elements[1].now.active),
             "reactEnergyCon1": convertUnits(jsonData.data.elements[0].now.reactive),
@@ -104,21 +104,32 @@ function stateMennekes(stateNumber){
             state="Charging finished";
             break;
         case 9:
-            state="error";
+            state="Hardware error";
             break;
         case 10:
-            state="error";
+            state="AC leakage error";
             break;
         case 11:
-            state="error";
+            state="DC leakage error";
             break;
         case 12:
-            state="error";
+            state="Diode error";
             break;
-        case 12:
-            state="error";
+        case 13:
+            state="PE ground error";
             break;
-
+        case 32:
+            state="Inoperative";
+            break;
+        case 33:
+            state="Selected";
+            break;
+        case 34:
+            state="Reserved";
+            break;
+        case 35:
+            state="Motor error";
+            break;
     }  
     return state;   
 

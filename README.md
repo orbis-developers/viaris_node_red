@@ -1,13 +1,26 @@
 # node-red-viaris
-Project for the Creation of a Node-RED Node for MQTT Communications with Viaris Chargers
+Project focused on a Node-RED Node development for MQTT Communications with Viaris Chargers
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/9093499c-4c55-4a5f-8dd4-435b23f3eba7)
 
 
 ## Installation
+
+- **Install via Node-RED Manage Palette**
+
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/3648380a-e44a-4543-89fc-65d299ba33d9)
+
+
+- **Install via npm**
+
+```
 npm install @orbis-developers/node-red-viaris
 
-After installation you will find the node inside the Node-red palette.
+```
+
+After installation you will find the node inside the Node-RED palette.
+
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/c2d39cd2-e579-420d-8042-c98d87ecd671)
 
 ## Input configuration
 node-red-viaris has to be configured with the charger serial number and the right broker mqtt credentials.
@@ -16,10 +29,18 @@ node-red-viaris has to be configured with the charger serial number and the righ
 
 
 ## Inputs/Outputs node
-node-red-viaris has an input to start and stop the charge in each connector and five differents outputs, that allows monitoring measures, mqtt configuration parameters, charger general information, connector 1 and connector 2 states.
+node-red-viaris features an input to control the start and stop of charging, and it also offers five separate outputs that provide monitoring capabilities. These outputs cover measures, MQTT configuration parameters, general charger information, and the states of connectors 1 and 2.
 
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/50385e24-b06b-4590-b114-431eff7dcb21)
+
+
+## Predefined Examples
+
+This integration includes predefined examples to streamline the setup process. You can directly import these examples into Node-RED for quick configuration.
+
+![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/a850850e-c6aa-40da-8a74-b83ff72141fa)
+
 
 ## General information
 On the help tab you can find detailed information about viaris node

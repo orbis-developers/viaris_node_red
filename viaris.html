@@ -177,8 +177,8 @@
                         totalPower: '0.00',
                         actPwCon1: '0.00',
                         actPwCon2: '0.00',
-                        rectPwCon1: '0.00',
-                        rectPwCon2: '0.00',</dd>
+                        reactPwCon1: '0.00',
+                        reactPwCon2: '0.00',</dd>
                         <dd>
                         actEnergyCon1: '154.20',
                         actEnergyCon2: '205.82',
@@ -276,7 +276,14 @@
     <p><code>- Charging: power limit</code></p>
     <p><code>- Paused charging</code></p>
     <p><code>- Charging finished</code></p>
-    <p><code>- error</code></p>
+    <p><code>- AC leakage error</code></p>
+    <p><code>- DC leakage error</code></p>
+    <p><code>- Diode error</code></p>
+    <p><code>- PE ground error</code></p>
+    <p><code>- Inoperative</code></p>
+    <p><code>- Selected</code></p>
+    <p><code>- Reserved</code></p>
+    <p><code>- Motor error</code></p>
     <p></p>
     <p>Schuko states are the following: </p>
     <p><code>- schuko standby</code></p>
@@ -285,8 +292,8 @@
     <p><code>- schuko OFF</code></p>
     <p></p>
     <p>To start or stop a charge, you can connect to the viaris input an injection node with these <code>msg.payload</code> strings:</p>
-    <p><code>StartConn1</code> :Start charging Connector 1</p>
-    <p><code>StopConn1</code> :Stop charging Connector 1</p>
-    <p><code>StartConn2</code> :Start charging Connector 2</p>
-    <p><code>StopConn2</code> :Stop charging Connector 2</p>
+    <p><code>- StartConn1</code>: Start charging Connector 1</p>
+    <p><code>- StopConn1</code>: Stop charging Connector 1</p>
+    <p><code>- StartConn2</code>: Start charging Connector 2</p>
+    <p><code>- StopConn2</code>:Stop charging Connector 2</p>
 </script>
