@@ -113,11 +113,11 @@
         "topic": "",
         "payload": "StartConn1",
         "payloadType": "str",
-        "x": 310,
+        "x": 290,
         "y": 120,
         "wires": [
             [
-                "dd95c5b37c70fe70"
+                "adf8cddb1cd4026d"
             ]
         ]
     },
@@ -142,11 +142,11 @@
         "topic": "",
         "payload": "StopConn1",
         "payloadType": "str",
-        "x": 310,
+        "x": 290,
         "y": 160,
         "wires": [
             [
-                "dd95c5b37c70fe70"
+                "adf8cddb1cd4026d"
             ]
         ]
     },
@@ -172,10 +172,10 @@
         "payload": "StopConn2",
         "payloadType": "str",
         "x": 300,
-        "y": 300,
+        "y": 280,
         "wires": [
             [
-                "dd95c5b37c70fe70"
+                "adf8cddb1cd4026d"
             ]
         ]
     },
@@ -201,27 +201,91 @@
         "payload": "StartConn2",
         "payloadType": "str",
         "x": 300,
-        "y": 260,
+        "y": 240,
         "wires": [
             [
-                "dd95c5b37c70fe70"
+                "adf8cddb1cd4026d"
             ]
         ]
     },
     {
-        "id": "dd95c5b37c70fe70",
+        "id": "4f03aa5b9aaac6a6",
+        "type": "inject",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "Set current connector 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "error",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "16",
+        "payload": "SetCurrentConn1",
+        "payloadType": "str",
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "adf8cddb1cd4026d"
+            ]
+        ]
+    },
+    {
+        "id": "92bda4021cc6e6be",
+        "type": "inject",
+        "z": "b15ea5fc4fd43ba8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "{\"period\":3, \"timeout\":-1}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "SetRtFrame",
+        "payloadType": "str",
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "adf8cddb1cd4026d"
+            ]
+        ]
+    },
+    {
+        "id": "adf8cddb1cd4026d",
         "type": "viaris",
         "z": "b15ea5fc4fd43ba8",
         "name": "EVVC351187AA0",
         "serialNumber": "EVVC351187AA0",
-        "brokerServer": "1.1.2.243",
+        "brokerServer": "1.1.2.230",
         "username": "MQTTBROKER",
         "password": "Orbis2022",
         "port": "1883",
         "qos": "0",
         "keepalive": "180",
-        "x": 670,
-        "y": 200,
+        "x": 650,
+        "y": 240,
         "wires": [
             [
                 "0b8bd925e0799aeb"

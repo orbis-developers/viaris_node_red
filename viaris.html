@@ -305,4 +305,12 @@
     <p><code>- StopConn1</code>: Stop charging Connector 1</p>
     <p><code>- StartConn2</code>: Start charging Connector 2</p>
     <p><code>- StopConn2</code>:Stop charging Connector 2</p>
+    <p>To change the limit current power connect an injection node with these <code>msg.payload</code> strings:</p>
+    <p><code>- SetCurrentConn1</code>: Current limit Connector 1</p>
+    <p><code>- SetCurrentConn2</code>: Current limit Connector 2</p>
+    <p><code>msg.topic</code> has to be configured with the amperes and the range must be between 0 and 32A</p>
+    <p>To change measurements update time connect an injection node with this <code>msg.payload</code> string:</p>
+    <p><code>- SetRtFrame</code>: Set configuration Rt frame, period and timeout</p>
+    <p><code>msg.topic</code> has to be configured with timeout and period in seconds. Timeout = -1 means always reporting data</p>
+    <p></p>Recommended configuration <code>{"period":3, "timeout":-1}</code></p>
 </script>

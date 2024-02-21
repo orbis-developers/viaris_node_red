@@ -1,6 +1,6 @@
 [
     {
-        "id": "be3cb7847700b55b",
+        "id": "97fb627249654d0a",
         "type": "tab",
         "label": "COMBIPLUS",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "374eb37d29d622a2",
+        "id": "aaf3f21ac92d22db",
         "type": "debug",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Modulator",
         "active": true,
         "tosidebar": true,
@@ -25,9 +25,9 @@
         "wires": []
     },
     {
-        "id": "9d4ddf52587920a5",
+        "id": "097ef3285bb984bf",
         "type": "debug",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "MQTT_cfg",
         "active": true,
         "tosidebar": true,
@@ -42,9 +42,9 @@
         "wires": []
     },
     {
-        "id": "64712b08896873b3",
+        "id": "cd21e0b5551f9e39",
         "type": "debug",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Boot_sys",
         "active": true,
         "tosidebar": true,
@@ -59,9 +59,9 @@
         "wires": []
     },
     {
-        "id": "29719b8ce7d81769",
+        "id": "c1ccc18a41b1e6ba",
         "type": "debug",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Mennekes 1",
         "active": true,
         "tosidebar": true,
@@ -76,9 +76,9 @@
         "wires": []
     },
     {
-        "id": "6f0550c7372744f9",
+        "id": "e7d323d174c438bf",
         "type": "debug",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Mennekes 2",
         "active": true,
         "tosidebar": true,
@@ -93,9 +93,9 @@
         "wires": []
     },
     {
-        "id": "fdc156848ddb304c",
+        "id": "16a4105ebb1badc8",
         "type": "inject",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Start mennekes 1 charging",
         "props": [
             {
@@ -114,17 +114,17 @@
         "payload": "StartConn1",
         "payloadType": "str",
         "x": 450,
-        "y": 340,
+        "y": 280,
         "wires": [
             [
-                "edbf646b7d36ddd4"
+                "200bc2c93ad52f98"
             ]
         ]
     },
     {
-        "id": "45a7d6693b81efeb",
+        "id": "17ed49c4f8f792a7",
         "type": "inject",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Stop mennekes 1 charging",
         "props": [
             {
@@ -143,17 +143,17 @@
         "payload": "StopConn1",
         "payloadType": "str",
         "x": 450,
-        "y": 380,
+        "y": 320,
         "wires": [
             [
-                "edbf646b7d36ddd4"
+                "200bc2c93ad52f98"
             ]
         ]
     },
     {
-        "id": "46f134e4474a3e6e",
+        "id": "f4f61c3ae7cff0f4",
         "type": "inject",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Stop mennekes 2 charging",
         "props": [
             {
@@ -171,18 +171,18 @@
         "topic": "",
         "payload": "StopConn2",
         "payloadType": "str",
-        "x": 440,
-        "y": 520,
+        "x": 450,
+        "y": 440,
         "wires": [
             [
-                "edbf646b7d36ddd4"
+                "200bc2c93ad52f98"
             ]
         ]
     },
     {
-        "id": "b61b94a655423552",
+        "id": "8fe257649ea8ee15",
         "type": "inject",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "Start mennekes 2 charging",
         "props": [
             {
@@ -200,21 +200,21 @@
         "topic": "",
         "payload": "StartConn2",
         "payloadType": "str",
-        "x": 440,
-        "y": 480,
+        "x": 450,
+        "y": 400,
         "wires": [
             [
-                "edbf646b7d36ddd4"
+                "200bc2c93ad52f98"
             ]
         ]
     },
     {
-        "id": "edbf646b7d36ddd4",
+        "id": "200bc2c93ad52f98",
         "type": "viaris",
-        "z": "be3cb7847700b55b",
+        "z": "97fb627249654d0a",
         "name": "EVVC4AC543DCC",
         "serialNumber": "EVVC4AC543DCC",
-        "brokerServer": "1.1.2.243",
+        "brokerServer": "1.1.2.230",
         "username": "MQTTBROKER",
         "password": "Orbis2022",
         "port": "1883",
@@ -224,19 +224,107 @@
         "y": 400,
         "wires": [
             [
-                "374eb37d29d622a2"
+                "aaf3f21ac92d22db"
             ],
             [
-                "9d4ddf52587920a5"
+                "097ef3285bb984bf"
             ],
             [
-                "64712b08896873b3"
+                "cd21e0b5551f9e39"
             ],
             [
-                "29719b8ce7d81769"
+                "c1ccc18a41b1e6ba"
             ],
             [
-                "6f0550c7372744f9"
+                "e7d323d174c438bf"
+            ]
+        ]
+    },
+    {
+        "id": "4e140c9ee4bfaba0",
+        "type": "inject",
+        "z": "97fb627249654d0a",
+        "name": "Set current connector 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "16",
+        "payload": "SetCurrentConn1",
+        "payloadType": "str",
+        "x": 460,
+        "y": 520,
+        "wires": [
+            [
+                "200bc2c93ad52f98"
+            ]
+        ]
+    },
+    {
+        "id": "d6527538f3138f0c",
+        "type": "inject",
+        "z": "97fb627249654d0a",
+        "name": "Set current connector 2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "16",
+        "payload": "SetCurrentConn2",
+        "payloadType": "str",
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "200bc2c93ad52f98"
+            ]
+        ]
+    },
+    {
+        "id": "f91b16940a6d16db",
+        "type": "inject",
+        "z": "97fb627249654d0a",
+        "name": "SetRTFrame",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "{\"period\":3, \"timeout\":-1}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "SetRtFrame",
+        "payloadType": "str",
+        "x": 490,
+        "y": 620,
+        "wires": [
+            [
+                "200bc2c93ad52f98"
             ]
         ]
     }

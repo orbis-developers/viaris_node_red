@@ -1,9 +1,16 @@
 var mqtt = require('mqtt');
+var timeout = -1, period = 3
+var payloadRt = `{"idTrans": 0,"data": {"status": true, "period": ${period},  "timeout": ${timeout}}}`;
 // Function to convert units with two decimals
 // Used for converting watts to kW, Var to kVar
 function convertUnits(unitInitial) {
     var unitChanged = (unitInitial/ 1000).toFixed(2);
     return unitChanged;
+}
+function updateRtValues(timeoutValue, periodValue){
+    timeout = timeoutValue
+    period = periodValue
+    payloadRt = `{"idTrans": 0,"data": {"status": true, "period": ${period},  "timeout": ${timeout}}}`;
 }
 function loadRtMeasures(topic, jsonData){
     var msg = {
@@ -235,6 +242,7 @@ function publishTopic(clientMqtt, topic, mensaje, qos){
 module.exports = function(RED) {
     var registeredSerialNumbers = [];
     var connections = [];
+    
     function ViarisNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
@@ -281,7 +289,7 @@ module.exports = function(RED) {
         var topicToSubscribe_init_boot_sys = 'XEO/VIARIS/'+ shortSerialNumber + '/stat/0/' + serialNumber + '/init_boot/sys';
         // Publish topics
         var topicSetRt = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/rt/modulator';
-        var payloadRt = '{"idTrans": 0,"data": {"status": true,"period": 5,"timeout": 10000}}';
+        //var payloadRt = `{"idTrans": 0,"data": {"status": true, "period": ${period},  "timeout": ${timeout}}}`;
         var topicGetMqtt = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/cfg/mqtt_user';
         var topicGetSysBoot = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/boot/sys';
         var payloadGet = '{"idTrans": 0}'
@@ -295,6 +303,7 @@ module.exports = function(RED) {
             topicGetConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/schuko';
             topicStartStopConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes';
             topicStartStopConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/schuko';
+            topicSetCurrentConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/value/mennekes';
             model='UNI';
 
         }else{
@@ -304,10 +313,13 @@ module.exports = function(RED) {
             topicGetConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/get/0/' + serialNumber + '/value/evsm/mennekes2';
             topicStartStopConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes1';
             topicStartStopConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/request/reqman/mennekes2';
+            topicSetCurrentConn1 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/value/mennekes1';
+            topicSetCurrentConn2 = 'XEO/VIARIS/' + shortSerialNumber + '/set/0/' + serialNumber + '/value/mennekes2';
             model='COMBIPLUS'
         }
         node.on('input', function(msg) {
             console.log(msg.payload);
+            var payloadCurrentConn;
             if(msg.payload==="StartConn1"){
                 publishTopic(client, topicStartStopConn1, payloadStart, qos);
             }else if(msg.payload==="StopConn1"){
@@ -316,7 +328,43 @@ module.exports = function(RED) {
                 publishTopic(client, topicStartStopConn2, payloadStart, qos);
             }else if(msg.payload==="StopConn2"){
                 publishTopic(client, topicStartStopConn2, payloadStop,qos);
-            }     
+            }else if(msg.payload==="SetCurrentConn1"){ 
+                let value = Number(msg.topic)
+                console.log(value);
+                if (value <0 || value>32){
+                   //value = 16
+                   node.error("The value of msg.topic must be between 0 and 32.");
+                   msg.error = "Error"
+                   return msg
+                }
+                value *= 1000
+                msg.topic = value.toString()
+                payloadCurrentConn = `{"idTrans":1, "data":{"stat":{"ampacitySmCh": ${msg.topic}}}}`;
+                publishTopic(client, topicSetCurrentConn1, payloadCurrentConn,qos);
+               
+                
+            }else if(msg.payload==="SetCurrentConn2"){ 
+                let value = Number(msg.topic)
+                if (value <0 || value>32){
+                    //value = 16
+                    node.error("The value of msg.topic must be between 0 and 32.");
+                    msg.error = "Error"
+                    return msg
+                }
+                value *= 1000
+                msg.topic = value.toString()
+                payloadCurrentConn = `{"idTrans":1, "data":{"stat":{"ampacitySmCh": ${msg.topic}}}}`;
+                publishTopic(client, topicSetCurrentConn2, payloadCurrentConn,qos); 
+              
+                
+            }else if(msg.payload==="SetRtFrame"){
+                let topicString = JSON.stringify(msg.topic)
+                let valuesRt = JSON.parse(topicString);
+                updateRtValues(valuesRt.timeout, valuesRt.period)
+                publishTopic(client, topicSetRt, payloadRt,qos); 
+
+            }   
+           
         });
         // "Connect" event handler
         client.on('connect', function() {
@@ -336,12 +384,12 @@ module.exports = function(RED) {
             publishTopic(client, topicGetConn2, payloadGet, qos);
             publishTopic(client, topicSetRt, payloadRt, qos);
             // Synchronous publishing of 'get' type topics
-            setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet, qos);}, 6000);        // 6000 ms  
+            setInterval(function() {publishTopic(client, topicGetMqtt, payloadGet, qos);}, 15000);        // 15000 ms  
             setInterval(function() {publishTopic(client, topicGetConn1, payloadGet, qos);}, 4000);       // 4000 ms 
             setInterval(function() {publishTopic(client, topicGetSysBoot, payloadGet, qos);}, 7000);     // 7000 ms
             setInterval(function() {publishTopic(client, topicGetConn2, payloadGet, qos);}, 5000);       // 5000 ms
            // Synchronous publishing of 'set' type topics
-            setInterval(function() {publishTopic(client, topicSetRt, payloadRt, qos);}, 10000);          // 10000 ms
+            setInterval(function() {publishTopic(client, topicSetRt, payloadRt, qos);}, 60000);          // 60s
         });
         client.on('close', function() {
             node.status({ fill: "red", shape: "dot", text: "MQTT disconnected" });
