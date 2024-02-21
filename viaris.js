@@ -41,6 +41,8 @@ function loadRtMeasures(topic, jsonData){
             ],
             "actEnergyCon1": convertUnits(jsonData.data.elements[0].now.active),
             "actEnergyCon2": convertUnits(jsonData.data.elements[1].now.active),
+            "currentAssignCon1": convertUnits(jsonData.data.elements[0].now.assignment),
+            "currentAssignCon2": convertUnits(jsonData.data.elements[1].now.assignment),
             "reactEnergyCon1": convertUnits(jsonData.data.elements[0].now.reactive),
             "reactEnergyCon2": convertUnits(jsonData.data.elements[1].now.reactive),
             "totalEnergy": convertUnits(jsonData.data.totalEnergy),
