@@ -168,7 +168,7 @@
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Measurements value output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{
+                <dd>payload: <code><pre>{
                         evsePower: '0.00',
                         homePower: '0.00',
                         totalPower: '0.00',
@@ -180,7 +180,6 @@
                             0: "0.00"
                             1: "0.00"
                             2: "0.00"
-                        <dd>
                         reactPwCon1: array[3]
                             0: "0.00"
                             1: "0.00"
@@ -193,7 +192,6 @@
                         actEnergyCon2: '205.82',
                         currentAssignCon1: "16.00"
                         currentAssignCon2: "0.00"
-                        </dd><dd>
                         reactEnergyCon1: '0.00',
                         reactEnergyCon2: '0.00',
                         totalEnergy: '0.00',
@@ -202,7 +200,8 @@
                         BattEnergy: '0.00'
                         FvPower: '0.00'
                         instPower:'0.00'
-                    }</code></dd>
+                    }</pre></code>
+                </dd>
             </dl>
         </li>
         <li>MQTT_cfg
@@ -210,7 +209,7 @@
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Mqtt configuration parameters output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{
+                <dd>payload: <code><pre>{
                         keepAlive: 180,
                         mqttUrl: '1.1.2.201',
                         mqttPort: 1883,
@@ -218,7 +217,7 @@
                         mqttClientId: 'EVVC351187AA0',
                         qos: 1,
                         pingInterval: 900
-                    }</code></dd>
+                    }</pre></code></dd>
                 </dd>
             </dl>
         </li>
@@ -227,7 +226,7 @@
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>Charger information output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{
+                <dd>payload: <code><pre>{
                   ethernet: true,
                   ocpp: true,
                   rfid: true,
@@ -238,8 +237,7 @@
                   mac: '40:91:51:18:7A:A0',
                   fwApp: '7.0.6',
                   hwver: '8.0',
-                  model: 'VIARIS UNI',</dd>
-                 <dd>
+                  model: 'VIARIS UNI',
                   serial: 'EVVC351187AA0',
                   fwCortex: '003.005.004 Jun 15 2023 10:57:12',
                   fwPwVers: '3PH_FW_ORB_V00.9 ',
@@ -247,7 +245,7 @@
                   maxPower: 22080,
                   limitPower: 22080,
                   selectorPower: 22080
-                }</code></dd>
+                }</pre></code></dd>
             </dl>
         </li>
         <li>Connector 1
@@ -255,10 +253,10 @@
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>- UNI model: Mennekes connector state output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{ user: '508289ab', state_mennekes: 'Charging: power limit' }</code></dd>
+                <dd>payload: <code><pre>{ user: '508289ab', state_mennekes: 'Charging: power limit' }</pre></code></dd>
                 <dd>- COMBIPLUS model: Mennekes 1 connector state output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{ user: '508289ab', state_mennekes1: 'Charging: power limit' }</code></dd>
+                <dd>payload: <code><pre>{ user: '508289ab', state_mennekes1: 'Charging: power limit' }</pre></code></dd>
             </dl>
         </li>
         <li>Connector 2
@@ -266,10 +264,10 @@
                 <dt>payload <span class="property-type">string</span></dt>
                 <dd>- UNI model: Schuko connector state output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{ user: '', state_schuko: 'Charging: power limit' }</code></dd>
+                <dd>payload: <code><pre>{ user: '', state_schuko: 'Charging: power limit' }</pre></code></dd>
                 <dd>- COMBIPLUS model: Mennekes 2 connector state output.</dd>
                 <dd>Example: </dd>
-                <dd>payload: <code>{ user: '508289ab', state_mennekes2: 'Charging: power limit' }</code></dd>
+                <dd>payload: <code><pre>{ user: '508289ab', state_mennekes2: 'Charging: power limit' }</pre></code></dd>
             </dl>
         </li>
     </ol>
