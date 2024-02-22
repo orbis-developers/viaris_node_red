@@ -320,7 +320,6 @@ module.exports = function(RED) {
             model='COMBIPLUS'
         }
         node.on('input', function(msg) {
-            console.log(msg.payload);
             var payloadCurrentConn;
             if(msg.payload==="StartConn1"){
                 publishTopic(client, topicStartStopConn1, payloadStart, qos);
@@ -332,12 +331,9 @@ module.exports = function(RED) {
                 publishTopic(client, topicStartStopConn2, payloadStop,qos);
             }else if(msg.payload==="SetCurrentConn1"){ 
                 let value = Number(msg.topic)
-                console.log(value);
-                if (value <0 || value>32){
-                   //value = 16
+                if ((value <0 || value>32) || isNaN(value)){
                    node.error("The value of msg.topic must be between 0 and 32.");
-                   msg.error = "Error"
-                   return msg
+                   return
                 }
                 value *= 1000
                 msg.topic = value.toString()
@@ -347,11 +343,9 @@ module.exports = function(RED) {
                 
             }else if(msg.payload==="SetCurrentConn2"){ 
                 let value = Number(msg.topic)
-                if (value <0 || value>32){
-                    //value = 16
+                if ((value <0 || value>32) || isNaN(value)){
                     node.error("The value of msg.topic must be between 0 and 32.");
-                    msg.error = "Error"
-                    return msg
+                    return
                 }
                 value *= 1000
                 msg.topic = value.toString()
@@ -362,6 +356,14 @@ module.exports = function(RED) {
             }else if(msg.payload==="SetRtFrame"){
                 let topicString = JSON.stringify(msg.topic)
                 let valuesRt = JSON.parse(topicString);
+                if (valuesRt.period <= 0 || valuesRt.period > 1000 || isNaN(valuesRt.period) ){
+                    node.error("Period value must be > 0 and <= 1000");
+                    return
+                }
+                if (valuesRt.timeout < -1 || valuesRt.tiemout > 1000 || isNaN(valuesRt.timeout) ){
+                    node.error("Period value must be >= -1 and <= 1000");
+                    return
+                }
                 updateRtValues(valuesRt.timeout, valuesRt.period)
                 publishTopic(client, topicSetRt, payloadRt,qos); 
 
