@@ -3,6 +3,7 @@ Project focused on a Node-RED Node development for MQTT Communications with Viar
 
 ![image](https://github.com/orbis-developers/viaris_node_red/assets/66405397/9093499c-4c55-4a5f-8dd4-435b23f3eba7)
 
+You can find more detailed information at https://iot.orbis.com.es/support/devices/uni/integrations/node_red/
 
 ## Installation
 
