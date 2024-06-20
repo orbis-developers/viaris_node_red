@@ -25,9 +25,9 @@ function loadRtMeasures(topic, jsonData){
                 convertUnits(jsonData.data.elements[0].now.aPow[2])
             ],
             "actPwCon2": [
-                convertUnits(jsonData.data.elements[1].now.aPow[0]),
-                convertUnits(jsonData.data.elements[1].now.aPow[1]),
-                convertUnits(jsonData.data.elements[1].now.aPow[2])
+                jsonData.data.elements[1] !== undefined ? convertUnits(jsonData.data.elements[1].now.aPow[0]):"none",
+                jsonData.data.elements[1] !== undefined ? convertUnits(jsonData.data.elements[1].now.aPow[1]):"none",
+                jsonData.data.elements[1] !== undefined ? convertUnits(jsonData.data.elements[1].now.aPow[2]):"none"
             ],
             "reactPwCon1": [
                 convertUnits(jsonData.data.elements[0].now.rPow[0]),
@@ -35,16 +35,16 @@ function loadRtMeasures(topic, jsonData){
                 convertUnits(jsonData.data.elements[0].now.rPow[2])
             ],
             "reactPwCon2": [
-                convertUnits(jsonData.data.elements[1].now.rPow[0]),
-                convertUnits(jsonData.data.elements[1].now.rPow[1]),
-                convertUnits(jsonData.data.elements[1].now.rPow[2])
+                jsonData.data.elements[1] !== undefined ? convertUnits(jsonData.data.elements[1].now.rPow[0]):"none",
+                jsonData.data.elements[1] !== undefined ?convertUnits(jsonData.data.elements[1].now.rPow[1]):"none",
+                jsonData.data.elements[1] !== undefined ?convertUnits(jsonData.data.elements[1].now.rPow[2]):"none"
             ],
             "actEnergyCon1": convertUnits(jsonData.data.elements[0].now.active),
-            "actEnergyCon2": convertUnits(jsonData.data.elements[1].now.active),
+            "actEnergyCon2": jsonData.data.elements[1] !== undefined ?convertUnits(jsonData.data.elements[1].now.active): "none",
             "currentAssignCon1": convertUnits(jsonData.data.elements[0].now.assignment),
-            "currentAssignCon2": convertUnits(jsonData.data.elements[1].now.assignment),
+            "currentAssignCon2": jsonData.data.elements[1] !== undefined ? convertUnits(jsonData.data.elements[1].now.assignment): "none",
             "reactEnergyCon1": convertUnits(jsonData.data.elements[0].now.reactive),
-            "reactEnergyCon2": convertUnits(jsonData.data.elements[1].now.reactive),
+            "reactEnergyCon2": jsonData.data.elements[1] !== undefined ?convertUnits(jsonData.data.elements[1].now.reactive): "none",
             "totalEnergy": convertUnits(jsonData.data.totalEnergy),
             "relOverload": convertUnits(jsonData.data.relOverload),
             "totalCurrent": convertUnits(jsonData.data.totalCurrent[0]),
